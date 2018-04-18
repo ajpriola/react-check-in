@@ -1,3 +1,48 @@
 .form-container {
+  margin: 8px;
   background: #eee;
+
+  .checkin-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 8px;
+
+    input {
+      margin: 4px 0px;
+
+      &[type='text'],
+      &[type='email'] {
+        font-size: 1em;
+      }
+    }
+
+    label {
+      font-size: 0.8em;
+      text-align: left;
+    }
+
+    .form-button-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+
+      .form-button {
+        flex-grow: 1;
+        border: none;
+        border-radius: 2px;
+        height: 40px;
+        font-size: 1.1em;
+        font-weight: bold;
+
+        &:first-child {
+          margin-right: 4px;
+        }
+
+        &:last-child {
+          margin-left: 4px;
+        }
+      }
+    }
+  }
 }

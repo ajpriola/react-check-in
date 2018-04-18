@@ -1,6 +1,6 @@
 import React from 'react';
 import CheckInList from '../checkin-list';
-import CheckInForm from '../checkin-form';
+import CheckInForm from '../../containers/checkin-form';
 import './content.css';
 
 const Content = () => (
