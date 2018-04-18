@@ -1,5 +1,5 @@
 import React from 'react';
-import CheckInList from '../checkin-list';
+import CheckInList from '../../containers/checkin-list';
 import CheckInForm from '../../containers/checkin-form';
 import './content.css';
 
@@ -15,6 +15,5 @@ const Content = () => (
     </div>
   </div>
 );
-
 
 export default Content;

@@ -5,7 +5,7 @@ import './checkin-list.css';
 
 const CheckInList = ({ patients }) => (
   <div className="list-container">
-    <ul>{patients.map(patient => <CheckInListItem key={patient.email} {...patient} />)}</ul>
+    <ul>{patients.map(patient => <CheckInListItem key={patient.email} patient={patient} />)}</ul>
   </div>
 );
 

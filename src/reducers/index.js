@@ -5,6 +5,7 @@ const checkin = (state = [], action) => {
         action.patient
       ]);
     default:
+      console.log(state);
       return state;
   }
 };
