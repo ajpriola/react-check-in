@@ -2,7 +2,7 @@
   padding: 12px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   text-align: left;
   background: white;
   border: 1px solid #ccc;
@@ -19,13 +19,11 @@
     border-bottom: 1px solid #ccc;
   }
 
-  .list-item-group-right {
-  }
-
   .list-item-group-vertical {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin: 4px;
 
     .list-item-title {
       font-size: 1em;
@@ -36,6 +34,11 @@
       font-size: 0.9em;
       color: #ccc;
       margin: 0;
+    }
+
+    .admit-button {
+      height: 100%;
+      font-size: 0.9em;
     }
   }
 }

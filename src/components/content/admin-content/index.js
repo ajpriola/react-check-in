@@ -7,7 +7,7 @@ const AdminContent = () => (
   <div className="content-container">
     <div className="content-section large">
       <h1 className="section-title">List</h1>
-      <CheckInList />
+      <CheckInList admin />
     </div>
   </div>
 );

@@ -3,6 +3,16 @@ export const addPatient = patient => ({
   patient
 });
 
+export const servingPatient = patient => ({
+  type: 'SERVING_PATIENT',
+  patient
+});
+
+export const servePatient = patient => ({
+  type: 'SERVE_PATIENT',
+  patient
+});
+
 export const removePatient = patient => ({
   type: 'REMOVE_PATIENT',
   patient

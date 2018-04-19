@@ -3,7 +3,6 @@ const patients = (state = [], action) => {
     case 'PATIENT_LIST':
       return action.patients;
     default:
-      console.log(state);
       return state;
   }
 };

@@ -2,7 +2,8 @@ const WebSocket = require('ws');
 
 const server = new WebSocket.Server({ port: 8081 });
 
-const patients = [];
+let patients = [];
+let currentlyServing = null;
 
 const broadcast = (data, ws) => {
   server.clients.forEach((client) => {
@@ -35,6 +36,18 @@ server.on('connection', (ws) => {
         });
         break;
       }
+      case 'SERVE_PATIENT':
+        currentlyServing = data.patient;
+        patients = patients.filter(patient => patient.id !== currentlyServing.id);
+        broadcast({
+          type: 'SERVING_PATIENT',
+          currentlyServing
+        });
+        broadcast({
+          type: 'PATIENT_LIST',
+          patients
+        });
+        break;
     }
   });
 

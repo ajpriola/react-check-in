@@ -8,6 +8,10 @@ const handlePatients = function* handlePatients(params) {
   yield takeEvery('ADD_PATIENT', (action) => {
     params.socket.send(JSON.stringify(action));
   });
+
+  yield takeEvery('SERVE_PATIENT', (action) => {
+    params.socket.send(JSON.stringify(action));
+  });
 };
 
 export default handlePatients;

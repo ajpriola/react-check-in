@@ -1,15 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CheckInListItem from './checkin-list-item';
+import CheckInListItem from '../../containers/checkin-list-item';
 import './checkin-list.css';
 
-const CheckInList = ({ patients }) => (
-  <div className="list-container">
-    <ul className="list">
-      {patients.map(patient => <CheckInListItem key={patient.email} patient={patient} />)}
-    </ul>
-  </div>
-);
+class CheckInList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      patients: props.patients,
+      admin: props.admin
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      patients: nextProps.patients,
+      admin: nextProps.admin
+    });
+  }
+
+  render() {
+    return (
+      <div className="list-container">
+        <ul className="list">
+          {this.state.patients.map(patient => (
+            <CheckInListItem key={patient.email} patient={patient} admin={this.state.admin} />
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+
+CheckInList.defaultProps = {
+  admin: false
+};
 
 CheckInList.propTypes = {
   patients: PropTypes.arrayOf(
@@ -17,7 +43,8 @@ CheckInList.propTypes = {
       email: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired
     }).isRequired
-  ).isRequired
+  ).isRequired,
+  admin: PropTypes.bool
 };
 
 export default CheckInList;

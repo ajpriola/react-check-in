@@ -2,8 +2,9 @@ import { connect } from 'react-redux';
 import CheckInListComponent from '../../components/checkin-list';
 
 const CheckInList = connect(
-  state => ({
-    patients: state.patients
+  (state, ownProps) => ({
+    patients: state.patients,
+    admin: ownProps.admin
   }),
   {}
 )(CheckInListComponent);
