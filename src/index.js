@@ -1,14 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { devToolsEnhancer } from 'redux-devtools-extension';
+import { createStore, applyMiddleware } from 'redux';
+import createSageMiddleware from 'redux-saga';
 
 import './index.css';
 import App from './App';
-import checkin from './reducers';
+import reducers from './reducers';
+import handlePatients from './sagas';
+import setupSocket from './sockets';
 
-const store = createStore(checkin, devToolsEnhancer());
+const sagaMiddleware = createSageMiddleware();
+
+const store = createStore(reducers, applyMiddleware(sagaMiddleware));
+
+const socket = setupSocket(store.dispatch);
+
+sagaMiddleware.run(handlePatients, { socket });
 
 ReactDOM.render(
   <Provider store={store}>

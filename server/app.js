@@ -1,6 +1,6 @@
 const WebSocket = require('ws');
 
-const server = new WebSocket.Server({ port: 1014 });
+const server = new WebSocket.Server({ port: 8081 });
 
 const patients = [];
 
@@ -13,28 +13,36 @@ const broadcast = (data, ws) => {
 };
 
 server.on('connection', (ws) => {
+  ws.send(
+    JSON.stringify({
+      type: 'PATIENT_LIST',
+      patients
+    })
+  );
+
   let index;
   ws.on('message', (message) => {
     const data = JSON.parse(message);
     switch (data.type) {
       case 'ADD_PATIENT': {
         index = patients.length;
-        patients.push({ name: data.name, id: index + 1 });
-        ws.send(
-          JSON.stringify({
-            type: 'PATIENT_LIST',
-            patients
-          })
-        );
-        broadcast(
-          {
-            type: 'PATIENT_LIST',
-            patients
-          },
-          ws
-        );
+        data.patient.id = index + 1;
+        patients.push(data.patient);
+        console.log(`Adding new patient: ${JSON.stringify(data.patient)}`);
+        broadcast({
+          type: 'PATIENT_LIST',
+          patients
+        });
         break;
       }
     }
+  });
+
+  ws.on('close', () => {
+    console.log('connection closed');
+  });
+
+  ws.on('error', (error) => {
+    console.error(error);
   });
 });
