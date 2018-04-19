@@ -5,7 +5,7 @@ import '../content.css';
 import './user-content.css';
 
 const UserContent = () => (
-  <div className="content-container">
+  <div className="row">
     <div className="content-section large">
       <h1 className="section-title">List</h1>
       <CheckInList />

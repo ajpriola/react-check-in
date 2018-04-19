@@ -7,24 +7,32 @@
   flex: 1;
 
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: flex-start;
   flex-wrap: wrap;
   margin: auto;
 
-  .content-section {
-    height: 100%;
+  .row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
 
-    .section-title {
-      font-size: 1.2em;
+    .content-section {
+      height: 100%;
+
+      .section-title {
+        font-size: 1.2em;
+      }
     }
-  }
 
-  .large {
-    flex: 2;
-  }
+    .large {
+      flex: 2;
+    }
 
-  .small {
-    flex: 1;
+    .small {
+      flex: 1;
+    }
   }
 }

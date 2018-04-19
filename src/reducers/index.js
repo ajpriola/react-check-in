@@ -1,11 +1,8 @@
-const reducers = (state = [], action) => {
-  switch (action.type) {
-    case 'PATIENT_LIST':
-      return action.patients;
-    default:
-      console.log(state);
-      return state;
-  }
-};
+import { combineReducers } from 'redux';
+import patients from './patients';
+
+const reducers = combineReducers({
+  patients
+});
 
 export default reducers;
