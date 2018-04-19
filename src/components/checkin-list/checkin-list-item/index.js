@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './checkin-list-item.css';
 
 class CheckInListItem extends Component {
   constructor(props) {
@@ -11,7 +12,10 @@ class CheckInListItem extends Component {
   render() {
     return (
       <div className="list-item-container">
-        Name: {this.state.patient.name}, Email: {this.state.patient.email}
+        <div className="list-item-group-vertical">
+          <h1 className="list-item-title">{this.state.patient.name}</h1>
+          <h2 className="list-item-subtitle">{this.state.patient.email}</h2>
+        </div>
       </div>
     );
   }

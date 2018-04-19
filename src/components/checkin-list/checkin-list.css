@@ -1,4 +1,14 @@
 .list-container {
   margin: 8px;
   background: #eee;
+
+  .list {
+    background: #eee;
+    list-style-type: none;
+    padding: 0;
+
+    & li {
+      margin: 4px;
+    }
+  }
 }
