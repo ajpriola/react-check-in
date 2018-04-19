@@ -10,7 +10,7 @@ const setupSocket = (dispatch) => {
         dispatch(populatePatientList(data.patients));
         break;
       case 'SERVING_PATIENT':
-        dispatch(servingPatient(data.currentlyServing));
+        dispatch(servingPatient(data.patient));
         break;
       default:
         break;

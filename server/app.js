@@ -21,6 +21,13 @@ server.on('connection', (ws) => {
     })
   );
 
+  ws.send(
+    JSON.stringify({
+      type: 'SERVING_PATIENT',
+      patient: currentlyServing
+    })
+  );
+
   let index;
   ws.on('message', (message) => {
     const data = JSON.parse(message);
@@ -39,9 +46,10 @@ server.on('connection', (ws) => {
       case 'SERVE_PATIENT':
         currentlyServing = data.patient;
         patients = patients.filter(patient => patient.id !== currentlyServing.id);
+        console.log(`serving: ${JSON.stringify(currentlyServing)}`);
         broadcast({
           type: 'SERVING_PATIENT',
-          currentlyServing
+          patient: currentlyServing
         });
         broadcast({
           type: 'PATIENT_LIST',

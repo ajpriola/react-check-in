@@ -3,7 +3,7 @@ import NowServingComponent from '../../components/now-serving';
 
 const NowServing = connect(
   state => ({
-    currentlyServing: state.currentlyServing
+    patient: state.serving
   }),
   {}
 )(NowServingComponent);
