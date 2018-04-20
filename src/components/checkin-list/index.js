@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CheckInListItem from '../../containers/checkin-list-item';
+import { patientType } from '../../types';
 import './checkin-list.css';
 
 class CheckInList extends Component {
@@ -38,12 +39,7 @@ CheckInList.defaultProps = {
 };
 
 CheckInList.propTypes = {
-  patients: PropTypes.arrayOf(
-    PropTypes.shape({
-      email: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired,
+  patients: PropTypes.arrayOf(patientType.isRequired).isRequired,
   admin: PropTypes.bool
 };
 

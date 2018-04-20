@@ -3,6 +3,8 @@
 
   .list {
     width: 100%;
+    min-width: 400px;
+    max-width: 600px;
     background: #eee;
     list-style-type: none;
     padding: 0;

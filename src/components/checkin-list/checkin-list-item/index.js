@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { patientType } from '../../../types';
+import { formatName } from '../../../util';
 import './checkin-list-item.css';
 
 class CheckInListItem extends Component {
@@ -16,13 +18,18 @@ class CheckInListItem extends Component {
   }
 
   render() {
+    const patient = this.state.patient;
+    const email = this.state.patient.email;
+    const admin = this.state.admin;
     return (
       <div className="list-item-container">
         <div className="list-item-group-vertical">
-          <h1 className="list-item-title">{this.state.patient.name}</h1>
-          <h2 className="list-item-subtitle">{this.state.patient.email}</h2>
+          <h1 className="list-item-title">
+            {formatName(patient.firstName, patient.lastName, admin)}
+          </h1>
+          {admin && <h2 className="list-item-subtitle">{email}</h2>}
         </div>
-        {this.state.admin && (
+        {admin && (
           <div className="list-item-group-vertical">
             <button className="admit-button" onClick={this.handleAdmit}>
               Admit
@@ -39,10 +46,7 @@ CheckInListItem.defaultProps = {
 };
 
 CheckInListItem.propTypes = {
-  patient: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
-  }).isRequired,
+  patient: patientType.isRequired,
   admin: PropTypes.bool,
   dispatch: PropTypes.func.isRequired
 };
