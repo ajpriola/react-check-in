@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Header } from 'semantic-ui-react';
 import { patientType } from '../../types';
 import { formatName } from '../../util';
 import './now-serving.css';
@@ -27,14 +28,14 @@ class NowServing extends Component {
     const patient = this.state.patient;
     const admin = this.state.admin;
     return (
-      <div className="serving-container">
-        <h1 className="serving-title">Now Serving</h1>
-        {patient && (
-          <h2 className="serving-label">
-            {formatName(patient.firstName, patient.lastName, admin)}
-          </h2>
-        )}
-      </div>
+      <Header
+        content="Now Serving"
+        subheader={
+          patient
+            ? formatName(patient.firstName, patient.lastName, admin)
+            : 'No patient being served'
+        }
+      />
     );
   }
 }

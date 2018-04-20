@@ -1,16 +1,3 @@
-.serving-container {
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-
-  border-bottom: 2px solid #ccc;
-
-  .serving-title {
-    font-size: 1.2em;
-  }
-
-  .serving-label {
-    font-size: 1em;
-  }
+.ui.header {
+  padding: 8px;
 }

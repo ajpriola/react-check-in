@@ -1,20 +1,19 @@
 import React from 'react';
+import { Grid } from 'semantic-ui-react';
 import CheckInList from '../../../containers/checkin-list';
-import CheckInForm from '../../../containers/checkin-form';
-import '../content.css';
-import './user-content.css';
+import PatientForm from '../../../containers/patient-form';
 
 const UserContent = () => (
-  <div className="row">
-    <div className="content-section large">
-      <h1 className="section-title">List</h1>
-      <CheckInList />
-    </div>
-    <div className="content-section small">
-      <h1 className="section-title">Form</h1>
-      <CheckInForm />
-    </div>
-  </div>
+  <Grid relaxed>
+    <Grid.Row verticalAlign="top" centered>
+      <Grid.Column stretched width={6} floated="left">
+        <CheckInList />
+      </Grid.Column>
+      <Grid.Column width={6} floated="right">
+        <PatientForm />
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
 );
 
 export default UserContent;

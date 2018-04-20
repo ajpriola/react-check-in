@@ -1,20 +1,19 @@
 import React from 'react';
+import { Grid } from 'semantic-ui-react';
 import CheckInList from '../../../containers/checkin-list';
-import PatientDetail from '../../../containers/patient-detail';
-import '../content.css';
-import './admin-content.css';
+import PatientForm from '../../../containers/patient-form';
 
 const AdminContent = () => (
-  <div className="row">
-    <div className="content-section large">
-      <h1 className="section-title">List</h1>
-      <CheckInList />
-    </div>
-    <div className="content-section small">
-      <h1 className="section-title">Detail</h1>
-      <PatientDetail />
-    </div>
-  </div>
+  <Grid relaxed>
+    <Grid.Row verticalAlign="top" centered>
+      <Grid.Column stretched width={6} floated="left">
+        <CheckInList admin />
+      </Grid.Column>
+      <Grid.Column width={6} floated="right">
+        <PatientForm admin />
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
 );
 
 export default AdminContent;

@@ -1,3 +1,11 @@
+.ui.container {
+  padding: 20px;
+}
+
+.ui.grid {
+  height: 100%;
+}
+
 .content-container {
   height: 100%;
   width: 90%;
@@ -9,31 +17,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-content: space-between;
   flex-wrap: wrap;
   margin: auto;
-
-  .row {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
-
-    .content-section {
-      height: 100%;
-      margin: 0 auto;
-
-      .section-title {
-        font-size: 1.2em;
-      }
-    }
-
-    .large {
-      flex: 2;
-    }
-
-    .small {
-      flex: 1;
-    }
-  }
 }

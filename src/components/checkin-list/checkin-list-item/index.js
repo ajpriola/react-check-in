@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button, List } from 'semantic-ui-react';
 import { patientType } from '../../../types';
 import { formatName } from '../../../util';
-import './checkin-list-item.css';
 
 class CheckInListItem extends Component {
   constructor(props) {
@@ -21,26 +21,22 @@ class CheckInListItem extends Component {
     const patient = this.state.patient;
     const admin = this.state.admin;
     return (
-      <div className="list-item-container">
-        <div className="list-item-group-vertical">
-          <h1 className="list-item-title">
-            {formatName(patient.firstName, patient.lastName, admin)}
-          </h1>
+      <List.Item key={patient.id}>
+        {admin && (
+          <List.Content floated="right">
+            <Button onClick={this.handleAdmit}>See Next</Button>
+          </List.Content>
+        )}
+        <List.Content>
+          <List.Header>{formatName(patient.firstName, patient.lastName, admin)}</List.Header>
           {admin && (
             <div>
-              <h2 className="list-item-subtitle">{patient.email}</h2>
-              <p className="list-item-detail">{patient.description}</p>
+              <List.Description>{patient.email}</List.Description>
+              <List.Description>{patient.description}</List.Description>
             </div>
           )}
-        </div>
-        {admin && (
-          <div className="list-item-group-vertical">
-            <button className="admit-button" onClick={this.handleAdmit}>
-              Admit
-            </button>
-          </div>
-        )}
-      </div>
+        </List.Content>
+      </List.Item>
     );
   }
 }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { List } from 'semantic-ui-react';
 import CheckInListItem from '../../containers/checkin-list-item';
 import { patientType } from '../../types';
-import './checkin-list.css';
+// import './checkin-list.css';
 
 class CheckInList extends Component {
   constructor(props) {
@@ -23,13 +24,11 @@ class CheckInList extends Component {
 
   render() {
     return (
-      <div className="list-container">
-        <ul className="list">
-          {this.state.patients.map(patient => (
-            <CheckInListItem key={patient.email} patient={patient} admin={this.state.admin} />
-          ))}
-        </ul>
-      </div>
+      <List divided relaxed>
+        {this.state.patients.map(patient => (
+          <CheckInListItem key={patient.id} patient={patient} admin={this.state.admin} />
+        ))}
+      </List>
     );
   }
 }
