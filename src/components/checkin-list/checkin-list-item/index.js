@@ -19,7 +19,6 @@ class CheckInListItem extends Component {
 
   render() {
     const patient = this.state.patient;
-    const email = this.state.patient.email;
     const admin = this.state.admin;
     return (
       <div className="list-item-container">
@@ -27,7 +26,12 @@ class CheckInListItem extends Component {
           <h1 className="list-item-title">
             {formatName(patient.firstName, patient.lastName, admin)}
           </h1>
-          {admin && <h2 className="list-item-subtitle">{email}</h2>}
+          {admin && (
+            <div>
+              <h2 className="list-item-subtitle">{patient.email}</h2>
+              <p className="list-item-detail">{patient.description}</p>
+            </div>
+          )}
         </div>
         {admin && (
           <div className="list-item-group-vertical">
