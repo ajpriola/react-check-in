@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, List } from 'semantic-ui-react';
 import { patientType } from '../../../types';
 import { formatDate, formatName } from '../../../util';
+import './checkin-list-item.css';
 
 class CheckInListItem extends Component {
   constructor(props) {
@@ -22,21 +23,21 @@ class CheckInListItem extends Component {
     const admin = this.state.admin;
     return (
       <List.Item key={patient.id}>
-        {admin && (
-          <List.Content floated="right">
-            <Button onClick={this.handleAdmit}>See Next</Button>
-          </List.Content>
-        )}
-        <List.Content>
+        <List.Content floated="left">
           <List.Header>{formatName(patient.firstName, patient.lastName, admin)}</List.Header>
           {admin && (
-            <div>
+            <div className="description-container">
               <List.Description>{patient.email}</List.Description>
               <List.Description>{patient.description}</List.Description>
               <List.Description>{formatDate(patient.date)}</List.Description>
             </div>
           )}
         </List.Content>
+        {admin && (
+          <List.Content floated="right">
+            <Button onClick={this.handleAdmit}>See Next</Button>
+          </List.Content>
+        )}
       </List.Item>
     );
   }

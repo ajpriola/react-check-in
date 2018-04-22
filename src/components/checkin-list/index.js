@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'semantic-ui-react';
 import CheckInListItem from '../../containers/checkin-list-item';
 import { patientType } from '../../types';
-// import './checkin-list.css';
+import './checkin-list.css';
 
 class CheckInList extends Component {
   constructor(props) {

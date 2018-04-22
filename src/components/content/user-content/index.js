@@ -4,7 +4,7 @@ import CheckInList from '../../../containers/checkin-list';
 import PatientForm from '../../../containers/patient-form';
 
 const UserContent = () => (
-  <Grid relaxed>
+  <Grid relaxed stackable>
     <Grid.Row verticalAlign="top" centered>
       <Grid.Column stretched width={6} floated="left">
         <CheckInList />
