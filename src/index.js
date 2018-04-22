@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import createSageMiddleware from 'redux-saga';
-
+import 'semantic-ui-css/semantic.css';
 import './index.css';
 import App from './App';
 import reducers from './reducers';

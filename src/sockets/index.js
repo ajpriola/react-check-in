@@ -1,4 +1,5 @@
 import { populatePatientList, servingPatient } from '../actions';
+import { convertPatientWithDate } from '../util';
 
 const setupSocket = (dispatch) => {
   const socket = new WebSocket('ws://localhost:8081');
@@ -8,17 +9,11 @@ const setupSocket = (dispatch) => {
     switch (data.type) {
       case 'PATIENT_LIST':
         dispatch(
-          populatePatientList(
-            data.patients.map((patient) => {
-              const converted = patient;
-              converted.date = new Date(patient.date);
-              return converted;
-            })
-          )
+          populatePatientList(data.patients.map(patient => convertPatientWithDate(patient)))
         );
         break;
       case 'SERVING_PATIENT':
-        dispatch(servingPatient(data.patient));
+        dispatch(servingPatient(convertPatientWithDate(data.patient)));
         break;
       default:
         break;

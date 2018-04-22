@@ -11,3 +11,9 @@ export function formatName(first, last, admin) {
 export function formatDate(date) {
   return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 }
+
+export function convertPatientWithDate(patient) {
+  const converted = patient;
+  converted.date = new Date(patient.date);
+  return converted;
+}
