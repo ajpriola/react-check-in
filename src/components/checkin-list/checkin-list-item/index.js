@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, List } from 'semantic-ui-react';
 import { patientType } from '../../../types';
-import { formatName } from '../../../util';
+import { formatDate, formatName } from '../../../util';
 
 class CheckInListItem extends Component {
   constructor(props) {
@@ -33,6 +33,7 @@ class CheckInListItem extends Component {
             <div>
               <List.Description>{patient.email}</List.Description>
               <List.Description>{patient.description}</List.Description>
+              <List.Description>{formatDate(patient.date)}</List.Description>
             </div>
           )}
         </List.Content>

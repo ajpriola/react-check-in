@@ -33,7 +33,12 @@ class PatientForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(this.state);
+    this.props.dispatch({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      description: this.state.description
+    });
     this.clearState();
   }
 

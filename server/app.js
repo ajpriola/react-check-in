@@ -35,6 +35,7 @@ server.on('connection', (ws) => {
       case 'ADD_PATIENT': {
         index = patients.length;
         data.patient.id = index + 1;
+        data.patient.date = Date.now();
         patients.push(data.patient);
         console.log(`Adding new patient: ${JSON.stringify(data.patient)}`);
         broadcast({

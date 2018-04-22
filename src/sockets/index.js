@@ -7,7 +7,15 @@ const setupSocket = (dispatch) => {
     const data = JSON.parse(event.data);
     switch (data.type) {
       case 'PATIENT_LIST':
-        dispatch(populatePatientList(data.patients));
+        dispatch(
+          populatePatientList(
+            data.patients.map((patient) => {
+              const converted = patient;
+              converted.date = new Date(patient.date);
+              return converted;
+            })
+          )
+        );
         break;
       case 'SERVING_PATIENT':
         dispatch(servingPatient(data.patient));

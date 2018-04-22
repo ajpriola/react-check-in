@@ -3,16 +3,11 @@ function formatNamePart(part) {
 }
 
 export function formatName(first, last, admin) {
-  let formattedFirst;
-  if (!admin) {
-    formattedFirst = first.charAt(0).toUpperCase();
-  } else {
-    formattedFirst = formatNamePart(first);
-  }
-
+  const formattedFirst = formatNamePart(admin ? first : first.charAt(0));
   const formattedLast = formatNamePart(last);
-
   return `${formattedFirst} ${formattedLast}`;
 }
 
-export default formatName;
+export function formatDate(date) {
+  return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+}
