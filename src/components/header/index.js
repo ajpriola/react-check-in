@@ -1,10 +1,6 @@
 import React from 'react';
-import { Sticky, Header } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 
-const HeaderComponent = () => (
-  <Sticky>
-    <Header>Check In Service</Header>
-  </Sticky>
-);
+const HeaderComponent = () => <Header>Check In Service</Header>;
 
 export default HeaderComponent;

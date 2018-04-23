@@ -1,24 +1,26 @@
+import * as Actions from '../constants/ActionTypes';
+
 export const addPatient = patient => ({
-  type: 'ADD_PATIENT',
+  type: Actions.ADD_PATIENT,
   patient
 });
 
 export const servingPatient = patient => ({
-  type: 'SERVING_PATIENT',
+  type: Actions.SERVING_PATIENT,
   patient
 });
 
 export const servePatient = patient => ({
-  type: 'SERVE_PATIENT',
+  type: Actions.SERVE_PATIENT,
   patient
 });
 
 export const populatePatientList = patients => ({
-  type: 'PATIENT_LIST',
+  type: Actions.PATIENT_LIST,
   patients
 });
 
 export const finishPatient = patient => ({
-  type: 'FINISH_PATIENT',
+  type: Actions.FINISH_PATIENT,
   patient
 });

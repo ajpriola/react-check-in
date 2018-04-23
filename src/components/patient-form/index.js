@@ -46,7 +46,7 @@ class PatientForm extends Component {
       error
     });
 
-    if (!error) {
+    if (this.state.admin || !error) {
       this.props.dispatch(
         this.state.admin
           ? this.state.patient
@@ -146,7 +146,7 @@ class PatientForm extends Component {
             </Form.Button>
           )}
         </Form.Group>
-        <Message error header="Incomplete form" content="Please fill out all of the form fields." />
+        <Message error header="Incomplete!" content="Please fill out all of the form fields." />
       </Form>
     );
   }

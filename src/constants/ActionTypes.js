@@ -1,1 +1,5 @@
 export const ADD_PATIENT = 'ADD_PATIENT';
+export const SERVING_PATIENT = 'SERVING_PATIENT';
+export const SERVE_PATIENT = 'SERVE_PATIENT';
+export const PATIENT_LIST = 'PATIENT_LIST';
+export const FINISH_PATIENT = 'FINISH_PATIENT';

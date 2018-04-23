@@ -1,12 +1,11 @@
 import { connect } from 'react-redux';
 import NowServingComponent from '../../components/now-serving';
 
-const NowServing = connect(
-  (state, ownProps) => ({
-    patient: state.serving,
-    admin: ownProps.admin
-  }),
-  {}
-)(NowServingComponent);
+const mapStateToProps = (state, ownProps) => ({
+  patient: state.serving,
+  admin: ownProps.admin
+});
+
+const NowServing = connect(mapStateToProps, {})(NowServingComponent);
 
 export default NowServing;
