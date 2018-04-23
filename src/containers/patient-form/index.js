@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import PatientFormComponent from '../../components/patient-form';
-import { addPatient } from '../../actions';
+import { addPatient, finishPatient } from '../../actions';
 
 const mapDispatchToProps = dispatch => ({
-  dispatch: (patient) => {
-    dispatch(addPatient(patient));
+  dispatch: (patient, admin) => {
+    dispatch(admin ? finishPatient(patient) : addPatient(patient));
   }
 });
 

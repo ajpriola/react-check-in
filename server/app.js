@@ -33,11 +33,11 @@ server.on('connection', (ws) => {
     const data = JSON.parse(message);
     switch (data.type) {
       case 'ADD_PATIENT': {
+        if (!data.patient) break;
         index = patients.length;
         data.patient.id = index + 1;
         data.patient.date = Date.now();
         patients.push(data.patient);
-        console.log(`Adding new patient: ${JSON.stringify(data.patient)}`);
         broadcast({
           type: 'PATIENT_LIST',
           patients
@@ -45,9 +45,9 @@ server.on('connection', (ws) => {
         break;
       }
       case 'SERVE_PATIENT':
+        if (!data.patient) break;
         currentlyServing = data.patient;
         patients = patients.filter(patient => patient.id !== currentlyServing.id);
-        console.log(`serving: ${JSON.stringify(currentlyServing)}`);
         broadcast({
           type: 'SERVING_PATIENT',
           patient: currentlyServing
@@ -56,6 +56,16 @@ server.on('connection', (ws) => {
           type: 'PATIENT_LIST',
           patients
         });
+        break;
+      case 'FINISH_PATIENT':
+        if (!currentlyServing || !data.patient) break;
+        if (currentlyServing.id === data.patient.id) {
+          currentlyServing = null;
+          broadcast({
+            type: 'SERVING_PATIENT',
+            patient: null
+          });
+        }
         break;
     }
   });

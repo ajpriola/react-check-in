@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Form } from 'semantic-ui-react';
+import { Form, Message } from 'semantic-ui-react';
 import { patientType } from '../../types';
 
 class PatientForm extends Component {
@@ -13,13 +13,15 @@ class PatientForm extends Component {
       email: '',
       description: '',
       patient: props.patient,
-      admin: props.admin
+      admin: props.admin,
+      formError: true
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.clearState = this.clearState.bind(this);
+    this.shouldSubmitButtonBeEnabled = this.shouldSubmitButtonBeEnabled.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,13 +35,31 @@ class PatientForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.dispatch({
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      description: this.state.description
+
+    const error =
+      this.state.firstName === '' ||
+      this.state.lastName === '' ||
+      this.state.email === '' ||
+      this.state.description === '';
+
+    this.setState({
+      error
     });
-    this.clearState();
+
+    if (!error) {
+      this.props.dispatch(
+        this.state.admin
+          ? this.state.patient
+          : {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            description: this.state.description
+          },
+        this.state.admin
+      );
+      this.clearState();
+    }
   }
 
   handleChange(e) {
@@ -57,15 +77,26 @@ class PatientForm extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      description: ''
+      description: '',
+      error: false
     });
+  }
+
+  shouldSubmitButtonBeEnabled() {
+    const admin = this.state.admin;
+
+    if (admin) {
+      return this.state.patient;
+    }
+    return true;
   }
 
   render() {
     const admin = this.state.admin;
     const patient = this.state.patient;
+    const error = this.state.error;
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form error={error} onSubmit={this.handleSubmit}>
         <Form.Group widths="equal">
           <Form.Input
             onChange={this.handleChange}
@@ -105,16 +136,17 @@ class PatientForm extends Component {
           readOnly={admin}
           value={admin && patient ? patient.description : this.state.description}
         />
-        {!admin && (
-          <Form.Group widths="equal">
-            <Form.Button type="submit" fluid primary>
-              Submit
-            </Form.Button>
-            <Form.Button type="reset" fluid secondary>
+        <Form.Group widths="equal">
+          <Form.Button type="submit" fluid primary disabled={!this.shouldSubmitButtonBeEnabled()}>
+            {admin ? 'Done' : 'Submit'}
+          </Form.Button>
+          {!admin && (
+            <Form.Button type="reset" fluid secondary onClick={this.handleReset}>
               Clear
             </Form.Button>
-          </Form.Group>
-        )}
+          )}
+        </Form.Group>
+        <Message error header="Incomplete form" content="Please fill out all of the form fields." />
       </Form>
     );
   }

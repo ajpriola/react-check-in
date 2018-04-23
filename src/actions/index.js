@@ -17,3 +17,8 @@ export const populatePatientList = patients => ({
   type: 'PATIENT_LIST',
   patients
 });
+
+export const finishPatient = patient => ({
+  type: 'FINISH_PATIENT',
+  patient
+});

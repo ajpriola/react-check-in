@@ -13,7 +13,10 @@ export function formatDate(date) {
 }
 
 export function convertPatientWithDate(patient) {
-  const converted = patient;
-  converted.date = new Date(patient.date);
-  return converted;
+  if (patient) {
+    const converted = patient;
+    converted.date = new Date(patient.date);
+    return converted;
+  }
+  return null;
 }
