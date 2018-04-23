@@ -11,7 +11,7 @@ describe('CheckInList', () => {
         lastName: 'Last',
         email: 'test@email.com',
         description: 'This is a test',
-        id: 0
+        id: '0'
       }
     ];
 

@@ -10,10 +10,10 @@ describe('CheckInListItem', () => {
       lastName: 'Last',
       email: 'test@email.com',
       description: 'This is a test',
-      id: 0
+      id: '0'
     };
 
-    const dispatch = () => {};
+    const dispatch = () => { };
 
     shallow(<CheckInListItem patient={patient} dispatch={dispatch} />);
   });

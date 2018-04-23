@@ -11,7 +11,7 @@ describe('Serving reducer', () => {
       lastName: 'Tester',
       email: 'test@email.com',
       description: 'Test single',
-      id: 0,
+      id: '0',
       date: new Date()
     };
     expect(

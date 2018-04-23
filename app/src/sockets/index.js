@@ -4,7 +4,8 @@ import { convertPatientWithDate } from '../util';
 import { PATIENT_LIST, SERVING_PATIENT, FINISH_PATIENT } from '../constants/ActionTypes';
 
 const setupSocket = (dispatch) => {
-  const socket = io('localhost:8081');
+  const url = process.env.REACT_APP_SOCKET_URL;
+  const socket = io(url);
 
   socket.on(PATIENT_LIST, (data) => {
     dispatch(populatePatientList(data.map(patient => convertPatientWithDate(patient))));

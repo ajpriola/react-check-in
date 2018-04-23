@@ -12,7 +12,7 @@ describe('Patients reducer', () => {
         lastName: 'Tester',
         email: 'test@email.com',
         description: 'Test single',
-        id: 0,
+        id: '0',
         date: new Date()
       }
     ];
@@ -30,7 +30,7 @@ describe('Patients reducer', () => {
         lastName: 'Tester',
         email: 'test@email.com',
         description: 'Test single',
-        id: 0,
+        id: '0',
         date: new Date()
       },
       {
@@ -38,7 +38,7 @@ describe('Patients reducer', () => {
         lastName: 'Tester',
         email: 'test@email.com',
         description: 'Test second element',
-        id: 1,
+        id: '1',
         date: new Date()
       }
     ];
