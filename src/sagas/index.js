@@ -6,15 +6,15 @@ import { ADD_PATIENT, SERVE_PATIENT, FINISH_PATIENT } from '../constants/ActionT
 
 const handlePatients = function* handlePatients(params) {
   yield takeEvery(ADD_PATIENT, (action) => {
-    params.socket.send(JSON.stringify(action));
+    params.socket.emit(ADD_PATIENT, action.patient);
   });
 
   yield takeEvery(SERVE_PATIENT, (action) => {
-    params.socket.send(JSON.stringify(action));
+    params.socket.emit(SERVE_PATIENT, action.patient);
   });
 
   yield takeEvery(FINISH_PATIENT, (action) => {
-    params.socket.send(JSON.stringify(action));
+    params.socket.emit(FINISH_PATIENT, action.patient);
   });
 };
 

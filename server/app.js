@@ -1,80 +1,65 @@
-const WebSocket = require('ws');
+const express = require('express');
+const app = express();
+const socket = require('socket.io');
 
-const server = new WebSocket.Server({ port: 8081 });
+const port = 8081;
 
 let patients = [];
 let currentlyServing = null;
 
-const broadcast = (data, ws) => {
-  server.clients.forEach((client) => {
-    if (client.readyState === WebSocket.OPEN && client !== ws) {
-      client.send(JSON.stringify(data));
-    }
-  });
-};
-
-server.on('connection', (ws) => {
-  ws.send(
-    JSON.stringify({
-      type: 'PATIENT_LIST',
-      patients
-    })
-  );
-
-  ws.send(
-    JSON.stringify({
-      type: 'SERVING_PATIENT',
-      patient: currentlyServing
-    })
-  );
-
-  let index;
-  ws.on('message', (message) => {
-    const data = JSON.parse(message);
-    switch (data.type) {
-      case 'ADD_PATIENT': {
-        if (!data.patient) break;
-        index = patients.length;
-        data.patient.id = index + 1;
-        data.patient.date = Date.now();
-        patients.push(data.patient);
-        broadcast({
-          type: 'PATIENT_LIST',
-          patients
-        });
-        break;
-      }
-      case 'SERVE_PATIENT':
-        if (!data.patient) break;
-        currentlyServing = data.patient;
-        patients = patients.filter(patient => patient.id !== currentlyServing.id);
-        broadcast({
-          type: 'SERVING_PATIENT',
-          patient: currentlyServing
-        });
-        broadcast({
-          type: 'PATIENT_LIST',
-          patients
-        });
-        break;
-      case 'FINISH_PATIENT':
-        if (!currentlyServing || !data.patient) break;
-        if (currentlyServing.id === data.patient.id) {
-          currentlyServing = null;
-          broadcast({
-            type: 'SERVING_PATIENT',
-            patient: null
-          });
-        }
-        break;
-    }
-  });
-
-  ws.on('close', () => {
-    console.log('connection closed');
-  });
-
-  ws.on('error', (error) => {
-    console.error(error);
-  });
+server = app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
+
+io = socket(server);
+
+io.on('connection', (socket) => {
+  broadcastState();
+
+  socket.on('ADD_PATIENT', (data) => {
+    addNewPatient(data);
+    broadcastList();
+  });
+
+  socket.on('SERVE_PATIENT', (data) => {
+    currentlyServing = data;
+    patients = patients.filter(patient => patient.id !== currentlyServing.id);
+    broadcastState();
+  });
+
+  socket.on('FINISH_PATIENT', (data) => {
+    if (currentlyServing.id === data.id) {
+      currentlyServing = null;
+      broadcastCurrent();
+    }
+  });
+
+  socket.on('error', (error) => {
+    console.log(error);
+  })
+});
+
+function addNewPatient(data) {
+  const id = patients.length;
+  patients.push({
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    description: data.description,
+    id: id,
+    date: Date.now()
+  });
+}
+
+function broadcastState() {
+  broadcastCurrent();
+  broadcastList();
+}
+
+function broadcastList() {
+  io.sockets.emit('PATIENT_LIST', patients);
+}
+
+function broadcastCurrent() {
+  io.sockets.emit('SERVING_PATIENT', currentlyServing);
+}

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "express": "^4.16.3",
     "prop-types": "^15.6.1",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
@@ -14,7 +15,8 @@
     "regenerator-runtime": "^0.11.1",
     "semantic-ui-css": "^2.3.1",
     "semantic-ui-react": "^0.79.1",
-    "ws": "^3.2.0"
+    "socket.io": "^2.1.0",
+    "socket.io-client": "^2.1.0"
   },
   "scripts": {
     "start": "webpack-dev-server --config conf/webpack.dev.js",
