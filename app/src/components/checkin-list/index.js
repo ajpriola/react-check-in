@@ -1,16 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List } from 'semantic-ui-react';
+import { Container, Header, List } from 'semantic-ui-react';
 import CheckInListItem from '../../containers/checkin-list-item';
 import { patientType } from '../../types';
 import './checkin-list.css';
 
 const CheckInList = props => (
-  <List divided relaxed>
-    {props.patients.map(patient => (
-      <CheckInListItem key={patient.id} patient={patient} admin={props.admin} />
-    ))}
-  </List>
+  <Container fluid>
+    <Header>Waiting List
+      <Header.Subheader>
+        {props.admin ? `There are currently ${props.patients.length} patients waiting.` : 'Please fill out the informational form and wait to be called.'}
+      </Header.Subheader>
+    </Header>
+    {props.patients.length > 0 && <List divided relaxed>
+      {props.patients.map(patient => (
+        <CheckInListItem key={patient.id} patient={patient} admin={props.admin} />
+      ))}
+    </List>}
+  </Container>
 );
 
 CheckInList.defaultProps = {

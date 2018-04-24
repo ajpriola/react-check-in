@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Message } from 'semantic-ui-react';
+import { Container, Header, Form, Message } from 'semantic-ui-react';
 import { patientType } from '../../types';
+import { formatDate } from '../../util';
+import './patient-form.css';
 
 class PatientForm extends Component {
   constructor(props) {
@@ -14,7 +16,8 @@ class PatientForm extends Component {
       description: '',
       patient: props.patient,
       admin: props.admin,
-      formError: true
+      formError: true,
+      open: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -96,58 +99,65 @@ class PatientForm extends Component {
     const patient = this.state.patient;
     const error = this.state.error;
     return (
-      <Form error={error} onSubmit={this.handleSubmit}>
-        <Form.Group widths="equal">
+      <Container fluid>
+        <Header>Information
+          <Header.Subheader>
+            {admin ? (patient && `${patient.firstName} checked in at ${formatDate(patient.date)}`) : 'Enter your information below.'}
+          </Header.Subheader>
+        </Header>
+        <Form error={error} onSubmit={this.handleSubmit}>
+          <Form.Group widths="equal">
+            <Form.Input
+              onChange={this.handleChange}
+              fluid
+              name="firstName"
+              label="First name"
+              placeholder="First"
+              readOnly={admin}
+              value={admin && patient ? patient.firstName : this.state.firstName}
+            />
+            <Form.Input
+              onChange={this.handleChange}
+              fluid
+              name="lastName"
+              label="Last name"
+              placeholder="Last"
+              readOnly={admin}
+              value={admin && patient ? patient.lastName : this.state.lastName}
+            />
+          </Form.Group>
           <Form.Input
             onChange={this.handleChange}
             fluid
-            name="firstName"
-            label="First name"
-            placeholder="First name"
+            name="email"
+            label="Email"
+            placeholder="example@gmail.com"
+            type="email"
             readOnly={admin}
-            value={admin && patient ? patient.firstName : this.state.firstName}
+            value={admin && patient ? patient.email : this.state.email}
           />
-          <Form.Input
+          <Form.TextArea
             onChange={this.handleChange}
-            fluid
-            name="lastName"
-            label="Last name"
-            placeholder="Last name"
+            name="description"
+            autoHeight
+            label="Condition"
+            placeholder={admin ? undefined : 'Describe your condition'}
             readOnly={admin}
-            value={admin && patient ? patient.lastName : this.state.lastName}
+            value={admin && patient ? patient.description : this.state.description}
           />
-        </Form.Group>
-        <Form.Input
-          onChange={this.handleChange}
-          fluid
-          name="email"
-          label="Email"
-          placeholder="Your email address"
-          type="email"
-          readOnly={admin}
-          value={admin && patient ? patient.email : this.state.email}
-        />
-        <Form.TextArea
-          onChange={this.handleChange}
-          name="description"
-          autoHeight
-          label="Condition"
-          placeholder="Describe your condition"
-          readOnly={admin}
-          value={admin && patient ? patient.description : this.state.description}
-        />
-        <Form.Group widths="equal">
-          <Form.Button type="submit" fluid primary disabled={!this.shouldSubmitButtonBeEnabled()}>
-            {admin ? 'Done' : 'Submit'}
-          </Form.Button>
-          {!admin && (
-            <Form.Button type="reset" fluid secondary onClick={this.handleReset}>
-              Clear
+          <Form.Group widths="equal">
+            <Form.Button type="submit" fluid primary disabled={!this.shouldSubmitButtonBeEnabled()}>
+              {admin ? 'Done' : 'Submit'}
             </Form.Button>
-          )}
-        </Form.Group>
-        <Message error header="Incomplete!" content="Please fill out all of the form fields." />
-      </Form>
+            {!admin && (
+              <Form.Button type="reset" fluid secondary onClick={this.handleReset}>
+                Clear
+              </Form.Button>
+            )}
+          </Form.Group>
+          <Message error header="Incomplete!" content="Please fill out all of the form fields." />
+        </Form>
+      </Container>
     );
   }
 }

@@ -6,10 +6,10 @@ import PatientForm from '../../../containers/patient-form';
 const UserContent = () => (
   <Grid relaxed stackable>
     <Grid.Row verticalAlign="top" centered>
-      <Grid.Column stretched width={6} floated="left">
+      <Grid.Column stretched largeScreen={8} width={10} floated="left">
         <CheckInList />
       </Grid.Column>
-      <Grid.Column width={6} floated="right">
+      <Grid.Column largeScreen={6} width={6} floated="right">
         <PatientForm />
       </Grid.Column>
     </Grid.Row>

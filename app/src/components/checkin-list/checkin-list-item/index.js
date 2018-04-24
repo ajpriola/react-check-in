@@ -26,10 +26,14 @@ class CheckInListItem extends Component {
         <List.Content floated="left">
           <List.Header>{formatName(patient.firstName, patient.lastName, admin)}</List.Header>
           {admin && (
-            <div className="description-container">
-              <List.Description>{patient.email}</List.Description>
-              <List.Description>{patient.description}</List.Description>
-              <List.Description>{formatDate(patient.date)}</List.Description>
+            <div>
+              <div>
+                <List.Description>{patient.email}</List.Description>
+                <List.Description>{`Checked in at ${formatDate(patient.date)}`}</List.Description>
+              </div>
+              <div className="description-container">
+                <List.Description>{patient.description}</List.Description>
+              </div>
             </div>
           )}
         </List.Content>
