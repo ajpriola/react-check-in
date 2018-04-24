@@ -4,7 +4,7 @@ const socket = require('socket.io');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const Patient = require('./models/patient');
+const Patient = require('./patient');
 
 mongoose.Promise = global.Promise;
 
@@ -59,6 +59,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('SERVE_PATIENT', (data) => {
+    console.log(`SERVE_PATIENT with ${JSON.stringify(data)}`);
     servePatient(data);
   });
 
@@ -80,8 +81,11 @@ function finishPatient(data) {
 
 function servePatient(data) {
   Patient.findByIdAndRemove(data.id).then((result) => {
+    if (!result) return;
     currentlyServing = mapPatient(result);
-    patients = patients.filter(patient => { patient.id != currentlyServing.id });
+    patients = patients.filter((patient) => {
+      return !patient.id.equals(currentlyServing.id);
+    });
     broadcastState();
   }).catch((error) => {
     console.log(error);

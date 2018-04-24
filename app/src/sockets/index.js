@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
-import { populatePatientList, servingPatient, finishPatient } from '../actions';
+import { populatePatientList, servingPatient } from '../actions';
 import { convertPatientWithDate } from '../util';
-import { PATIENT_LIST, SERVING_PATIENT, FINISH_PATIENT } from '../constants/ActionTypes';
+import { PATIENT_LIST, SERVING_PATIENT } from '../constants/ActionTypes';
 
 const setupSocket = (dispatch) => {
   const url = process.env.REACT_APP_SOCKET_URL;
@@ -13,10 +13,6 @@ const setupSocket = (dispatch) => {
 
   socket.on(SERVING_PATIENT, (data) => {
     dispatch(servingPatient(convertPatientWithDate(data)));
-  });
-
-  socket.on(FINISH_PATIENT, (data) => {
-    dispatch(finishPatient(data));
   });
 
   return socket;
